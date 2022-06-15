@@ -67,8 +67,8 @@ INSTALLED_APPS = [
     "guardian",  # Permissions
     
     ### Local apps
-    "mozio_transport_suppliers.users" # User management
-    
+    "mozio_transport_suppliers.users", # User management
+    "mozio_transport_suppliers.providers", # Handle providers accounts
 ]
 
 
