@@ -1,0 +1,15 @@
+{% extends "admin/base.html" %}
+
+{% load static %}
+
+{% block title %}{{ title }} | {{ site_title|default:_('Mozio Transport Suppliers') }}{% endblock %}
+
+{% block branding %}
+<h1 id="site-name">
+    <a href="{% url 'admin:index' %}">
+        Mozio
+    </a>
+</h1>
+{% endblock %}
+
+{% block nav-global %}{% endblock %}
