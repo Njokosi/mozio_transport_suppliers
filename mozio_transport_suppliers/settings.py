@@ -46,13 +46,16 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "django.contrib.sites",
+    
     ##### Third party apps
     "axes",  # Keep track of login attempts
     "rest_framework",  # RESTful APIs
     "rest_framework.authtoken",
     "corsheaders",  # Allow cross-origin requests
     "drf_yasg",  # Api documentation
-    ## - Authentication
+    "phone_field", # Handle phone numbers password_validation
+    
+    ### - Authentication
     # All-in-one authentication
     "dj_rest_auth",  # API endpoints for RESTful authentication
     "allauth",  # Social authentication
