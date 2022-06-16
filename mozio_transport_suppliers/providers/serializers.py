@@ -34,4 +34,4 @@ class ServiceAreaSerializer(serializers.ModelSerializer):
             "price",
             "geo_json",
         )
-        read_only_fields = ("id", "provider")
+        read_only_fields = ("id",)

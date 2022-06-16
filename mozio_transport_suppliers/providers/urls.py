@@ -13,7 +13,7 @@ router.register(r"", ProviderViewSet, basename="providers")
 
 urlpatterns = [
     path(
-        "service-areas/search-polygons/lat=<float:lat>/&long=<float:long>/",
+        "service-areas/search-polygons/lat=<float:lat>&long=<float:long>/",
         SearchServiceAreaPolygonsApiView.as_view(),
         name="search-polygons",
     ),

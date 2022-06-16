@@ -230,7 +230,7 @@ REST_AUTH_REGISTER_SERIALIZERS = {
 
 # Set up the rest framework authentication middleware classes
 REST_FRAMEWORK = {
-    "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
+    # "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
     "DEFAULT_AUTHENTICATION_CLASSES": (
         "rest_framework.authentication.BasicAuthentication",
         # 'rest_framework.authentication.SessionAuthentication',

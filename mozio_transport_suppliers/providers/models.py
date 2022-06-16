@@ -74,7 +74,7 @@ class ServiceArea(models.Model):
     price = models.DecimalField(
         _("Service Area Price"), max_digits=50, decimal_places=2
     )
-    geo_json = models.JSONField(_("Polygon coordinates"))
+    geo_json = models.TextField(_("Polygon coordinates"), max_length=1000)
 
     # Timestamps
     created_at = models.DateTimeField(auto_now_add=True)

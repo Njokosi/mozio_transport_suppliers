@@ -33,17 +33,18 @@ class ProviderViewSet(
     serializer_class = ProviderSerializer
     lookup_field = "user"
 
-    def get_permissions(self):
-        """
-        Instantiates and returns the list of permissions that provider view requires.
+    # TODO: We can also add permission classes
+    # def get_permissions(self):
+    #     """
+    #     Instantiates and returns the list of permissions that provider view requires.
 
-        - If user is admin return all the list of providers.
-        """
-        if self.action == "list":
-            permission_classes = [permissions.IsAdminUser]
-        else:
-            permission_classes = [IsOwner]
-        return [permission() for permission in permission_classes]
+    #     - If user is admin return all the list of providers.
+    #     """
+    #     if self.action == "list":
+    #         permission_classes = [permissions.IsAdminUser]
+    #     else:
+    #         permission_classes = [IsOwner]
+    #     return [permission() for permission in permission_classes]
 
 
 class ServiceAreaViewSet(
@@ -70,15 +71,15 @@ class SearchServiceAreaPolygonsApiView(APIView):
     renderer_classes = [JSONRenderer]
 
     def get(self, request, *args, **kwargs):
+
         latitude = kwargs.get("lat")
         longitude = kwargs.get("long")
 
-        if latitude and longitude:
-            print("Hi there")
+        if latitude is None or longitude is None:
+            content = {"error": "Latitude and longitude are required"}
+            Response(content, status=status.HTTP_400_BAD_REQUEST)
+        
         else:
-            raise APIException(
-                "Please provide latitude and longitude as query parameters"
-            )
-
+            print("Hi there", latitude, longitude)
         content = {"success": "Response OK"}
         return Response(content, status=status.HTTP_200_OK)
