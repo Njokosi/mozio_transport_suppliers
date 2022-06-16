@@ -2,8 +2,11 @@ from django.shortcuts import render
 from rest_framework import viewsets, mixins, permissions
 
 from mozio_transport_suppliers.users.permissions import IsOwner
-from mozio_transport_suppliers.providers.models import Provider
-from mozio_transport_suppliers.providers.serializers import ProviderSerializer
+from mozio_transport_suppliers.providers.models import Provider, ServiceArea
+from mozio_transport_suppliers.providers.serializers import (
+    ProviderSerializer,
+    ServiceAreaSerializer,
+)
 
 
 class ProviderViewSet(
@@ -29,9 +32,26 @@ class ProviderViewSet(
     def get_permissions(self):
         """
         Instantiates and returns the list of permissions that provider view requires.
+
+        - If user is admin return all the list of providers.
         """
         if self.action == "list":
             permission_classes = [permissions.IsAdminUser]
         else:
             permission_classes = [IsOwner]
         return [permission() for permission in permission_classes]
+
+
+class ServiceAreaViewSet(
+    mixins.ListModelMixin,
+    mixins.CreateModelMixin,
+    mixins.RetrieveModelMixin,
+    mixins.DestroyModelMixin,
+    viewsets.GenericViewSet,
+):
+    """
+    API endpoint that allows service areas to be created, viewed or edited.
+    """
+
+    queryset = ServiceArea.objects.all()
+    serializer_class = ServiceAreaSerializer
