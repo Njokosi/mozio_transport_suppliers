@@ -36,6 +36,7 @@ oauthlib==3.2.0; python_version >= "3.6" and python_full_version < "3.0.0" or py
 packaging==21.3; python_version >= "3.6"
 pathspec==0.9.0; python_full_version >= "3.6.2"
 platformdirs==2.5.2; python_version >= "3.7" and python_full_version >= "3.6.2"
+psycopg2-binary==2.9.3; python_version >= "3.6"
 pycparser==2.21; python_version >= "3.7" and python_full_version < "3.0.0" or python_version >= "3.7" and python_full_version >= "3.4.0"
 pyjwt==2.4.0; python_version >= "3.7"
 pyparsing==3.0.9; python_full_version >= "3.6.8" and python_version >= "3.6"
