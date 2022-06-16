@@ -1,18 +1,38 @@
 from django.db import models
-import uuid
+from django.contrib.auth import get_user_model
 from django.utils.translation import gettext as _
-from typing import Optional
+
 from phone_field import PhoneField
+from typing import Optional
+
 from .currencies import CURRENCIES
 from .languages import LANGUAGES
 
 
 class Provider(models.Model):
-    id = models.UUIDField(
-        primary_key=True, default=uuid.uuid4, unique=True, editable=False
+
+    """
+    Provider user profile.
+
+    Signal: When user is registered in the system the provider profile is created with the following fields.
+    Allow to create a new provider profile for a new user.
+
+    If name is changed, the name is updated in the provider profile.
+
+    """
+
+    user = models.OneToOneField(
+        get_user_model(),
+        primary_key=True,
+        unique=True,
+        on_delete=models.CASCADE,
+        related_name="provider",
     )
+    
     name = models.CharField(_("Provider Name"), max_length=255)
-    email = models.EmailField(_("Provider Email"), unique=True, max_length=255)
+    email = models.EmailField(
+        _("Provider Email"), editable=False, unique=True, max_length=255
+    )
     currency = models.CharField(
         _("Provider Currency"), choices=CURRENCIES, max_length=10, default="$"
     )

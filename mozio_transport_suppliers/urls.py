@@ -29,7 +29,7 @@ urlpatterns = [
     path("api/v1/auth/", include("dj_rest_auth.urls")),  # authentication
     path("api/v1/auth/register/", include("dj_rest_auth.registration.urls")),
     # Local application API urls
-    
+    path("api/v1/providers/", include("mozio_transport_suppliers.providers.urls")),
     # Documentation
     path(
         "documentation/",
