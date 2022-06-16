@@ -1,5 +1,9 @@
 from django.shortcuts import render
-from rest_framework import viewsets, mixins, permissions
+from rest_framework import viewsets, mixins, permissions, status
+from rest_framework.views import APIView
+from rest_framework.exceptions import APIException
+from rest_framework.response import Response
+from rest_framework.renderers import JSONRenderer
 
 from mozio_transport_suppliers.users.permissions import IsOwner
 from mozio_transport_suppliers.providers.models import Provider, ServiceArea
@@ -55,3 +59,26 @@ class ServiceAreaViewSet(
 
     queryset = ServiceArea.objects.all()
     serializer_class = ServiceAreaSerializer
+
+
+class SearchServiceAreaPolygonsApiView(APIView):
+    """
+    API endpoint that  outputs the all the polygon information associated with
+    a particular latitude and longtitude
+    """
+
+    renderer_classes = [JSONRenderer]
+
+    def get(self, request, *args, **kwargs):
+        lat = kwargs.get("lat")
+        long = kwargs.get("long")
+
+        if lat and long:
+            print("Hi there")
+        else:
+            raise APIException(
+                "Please provide latitude and longitude as query parameters"
+            )
+
+        content = {"success": "Response OK"}
+        return Response(content, status=status.HTTP_200_OK)
