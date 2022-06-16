@@ -7,8 +7,9 @@ from mozio_transport_suppliers.converters import FloatUrlParameterConverter
 register_converter(FloatUrlParameterConverter, "float")
 
 router = routers.DefaultRouter()
-router.register(r"", ProviderViewSet, basename="providers")
+
 router.register(r"service-areas", ServiceAreaViewSet, basename="provider-service-areas")
+router.register(r"", ProviderViewSet, basename="providers")
 
 urlpatterns = [
     path(

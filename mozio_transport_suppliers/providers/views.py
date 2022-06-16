@@ -70,10 +70,10 @@ class SearchServiceAreaPolygonsApiView(APIView):
     renderer_classes = [JSONRenderer]
 
     def get(self, request, *args, **kwargs):
-        lat = kwargs.get("lat")
-        long = kwargs.get("long")
+        latitude = kwargs.get("lat")
+        longitude = kwargs.get("long")
 
-        if lat and long:
+        if latitude and longitude:
             print("Hi there")
         else:
             raise APIException(
