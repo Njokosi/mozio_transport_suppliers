@@ -1,7 +1,9 @@
 from django.db import models
 from django.contrib.auth import get_user_model
+from django.contrib.postgres.fields import JSONField
 from django.utils.translation import gettext as _
 
+import uuid
 from phone_field import PhoneField
 from typing import Optional
 
@@ -28,7 +30,7 @@ class Provider(models.Model):
         on_delete=models.CASCADE,
         related_name="provider",
     )
-    
+
     name = models.CharField(_("Provider Name"), max_length=255)
     email = models.EmailField(
         _("Provider Email"), editable=False, unique=True, max_length=255
@@ -56,5 +58,33 @@ class Provider(models.Model):
     def __str__(self):
         return f"{self.name} - {self.email}"
 
-    def get_provider_email(self) -> Optional[str]:
-        return self.user.email if self.user else self.email
+
+class ServiceArea(models.Model):
+    """
+    Service Area model.
+    """
+
+    id = models.UUIDField(
+        primary_key=True, default=uuid.uuid4, unique=True, editable=False
+    )
+    provider = models.ForeignKey(
+        Provider, on_delete=models.CASCADE, related_name="service_areas"
+    )
+    name = models.CharField(_("Service Area Name"), max_length=100)
+    price = models.DecimalField(
+        _("Service Area Price"), max_digits=50, decimal_places=2
+    )
+    geo_json = models.JSONField(_("Polygon coordinates"))
+
+    # Timestamps
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True, null=True)
+
+    class Meta:
+        db_table = "service_areas"
+        ordering = ("name", "provider")
+        verbose_name = _("Service Area")
+        verbose_name_plural = _("Service Areas")
+
+    def __str__(self):
+        return f"{self.provider.name} - {self.name}"

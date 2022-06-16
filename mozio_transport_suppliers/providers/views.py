@@ -18,7 +18,8 @@ class ProviderViewSet(
 
 
     AUTHORIZATIONS:
-    Only admin will have permission to view list of all the providers.
+        - Only admin will have permission to view list of all the providers.
+        - The user in session can update the details of his provider profile
     """
 
     queryset = Provider.objects.all()
