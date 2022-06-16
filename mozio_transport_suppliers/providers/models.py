@@ -26,14 +26,13 @@ class Provider(models.Model):
     user = models.OneToOneField(
         get_user_model(),
         primary_key=True,
-        unique=True,
         on_delete=models.CASCADE,
         related_name="provider",
     )
 
     name = models.CharField(_("Provider Name"), max_length=255)
     email = models.EmailField(
-        _("Provider Email"), editable=False, unique=True, max_length=255
+        _("Provider Email"), editable=False, max_length=255
     )
     currency = models.CharField(
         _("Provider Currency"), choices=CURRENCIES, max_length=10, default="$"
