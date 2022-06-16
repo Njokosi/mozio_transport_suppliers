@@ -5,6 +5,9 @@ from rest_framework.exceptions import APIException
 from rest_framework.response import Response
 from rest_framework.renderers import JSONRenderer
 
+from shapely.geometry import Polygon, Point
+
+
 from mozio_transport_suppliers.users.permissions import IsOwner
 from mozio_transport_suppliers.providers.models import Provider, ServiceArea
 from mozio_transport_suppliers.providers.serializers import (
@@ -80,6 +83,16 @@ class SearchServiceAreaPolygonsApiView(APIView):
             Response(content, status=status.HTTP_400_BAD_REQUEST)
         
         else:
-            print("Hi there", latitude, longitude)
-        content = {"success": "Response OK"}
-        return Response(content, status=status.HTTP_200_OK)
+            
+            point = Point(float(latitude), float(longitude))
+            selected_polygons = []
+            queryset = ServiceArea.objects.all()
+            for polygons in queryset:
+                poly_coord = polygons.poly
+                eval_poly_coord = eval(poly_coord)
+                polygon = Polygon(eval_poly_coord)
+                if polygon.contains(point):
+                    selected_polygons.append(polygons)
+
+        return selected_polygons
+        
